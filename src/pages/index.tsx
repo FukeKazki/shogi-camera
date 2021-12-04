@@ -1,9 +1,9 @@
-import { css } from "@emotion/react"
+import { css } from "@emotion/react";
 import React from "react";
 
 const title = css`
   color: gray;
-`
+`;
 
 const Home: React.FC = () => {
   return (
