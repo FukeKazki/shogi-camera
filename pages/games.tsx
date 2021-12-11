@@ -1,35 +1,37 @@
+import { error } from "console";
 import { collection, getDocs } from "firebase/firestore"
+import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import React, {useEffect} from "react";
 import { db, firebase } from "../libs/firebase";
 
-const getFirestoreData = (collectionName: string) => {
-  return getDocs(collection(db,collectionName)).then((data) => {
-    return data.forEach((doc) => {
-      doc.data()
-    })
-  }).catch((error) => {
-    console.error(error.code)
-  })
+type Props = {
+  test: string
 }
 
-const games = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => {
-    const f = async () => {
-      const fetchData = await getFirestoreData("games")
-      console.log(fetchData)
-    }
-    f();
-  }, [])
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const querySnapShot = await getDocs(collection(db,"games"));
+  const info = querySnapShot.docs.map((doc: { data: () => void }) => {
+    doc.data();
+  });
+  console.log(info)
+  // console
+  // [ undefined, undefined ]
+  const test = "hogehoge"
+  return {
+    props: { test }
+  }
+}
+
+const Games: NextPage<Props> = ({test}: Props) => {
   return (
     <>
       <div>games</div>
       <div>
-      hoge
+      {test}
       </div>
     </>
-    )
+  )
 }
 
-export default games
+export default Games
