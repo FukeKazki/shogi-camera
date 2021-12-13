@@ -1,7 +1,7 @@
 export type GamesInfoType = {
     "startTime": string
     "endTime": string
-    "handycap": string
+    "handicap": string
     "id": string
     "status": string
     "sente": string
@@ -11,7 +11,7 @@ export type GamesInfoType = {
 export const instanceOfGamesInfo = (arg: any): arg is GamesInfoType => 
     "startTime" in arg &&
     "endTime" in arg &&
-    "handycap" in arg &&
+    "handicap" in arg &&
     "id" in arg &&
     "status" in arg &&
     "sente" in arg &&
