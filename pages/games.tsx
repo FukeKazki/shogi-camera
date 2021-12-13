@@ -1,37 +1,32 @@
-import { error } from "console";
-import { collection, getDocs } from "firebase/firestore"
-import { GetServerSideProps, NextPage } from "next";
-import Link from "next/link";
-import React, {useEffect} from "react";
-import { db, firebase } from "../libs/firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
+import React from "react";
+import { db } from "../libs/firebase";
 
-type Props = {
-  test: string
-}
+export type GamesPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const querySnapShot = await getDocs(collection(db,"games"));
-  const info = querySnapShot.docs.map((doc: { data: () => void }) => {
-    doc.data();
+export const getServerSideProps: GetServerSideProps = async () => {
+  const querySnapShot = await getDocs(collection(db, "games"));
+  const games = []; // ここ型つけといてほしい
+
+  querySnapShot.forEach((doc) => {
+    games.push(doc.data()); // ここ型つけといてほしい
   });
-  console.log(info)
-  // console
-  // [ undefined, undefined ]
-  const test = "hogehoge"
-  return {
-    props: { test }
-  }
-}
 
-const Games: NextPage<Props> = ({test}: Props) => {
+  return {
+    props: { games: JSON.parse(JSON.stringify(games)) },
+  };
+};
+
+const Games: NextPage<GamesPageProps> = ({ games }) => {
   return (
     <>
       <div>games</div>
       <div>
-      {test}
+        {JSON.stringify(games)}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Games
+export default Games;
