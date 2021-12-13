@@ -1,6 +1,6 @@
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
-import { fetchGames } from "../apis/firebase/games";
-import { GamesInfoType } from "../types";
+import { fetchGames } from "../../apis/firebase/games";
+import { GamesInfoType } from "../../types";
 
 export type GamesPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
