@@ -1,24 +1,21 @@
-import { collection, getDocs } from "firebase/firestore";
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
-import React from "react";
-import { db } from "../libs/firebase";
+import { fetchGames } from "../apis/firebase/games";
+import { GamesInfoType } from "../types";
 
 export type GamesPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const querySnapShot = await getDocs(collection(db, "games"));
-  const games = []; // ここ型つけといてほしい
+type Props = {
+  games : GamesInfoType[]
+}
 
-  querySnapShot.forEach((doc) => {
-    games.push(doc.data()); // ここ型つけといてほしい
-  });
-
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const games = await fetchGames()
   return {
-    props: { games: JSON.parse(JSON.stringify(games)) },
+    props: { games },
   };
 };
 
-const Games: NextPage<GamesPageProps> = ({ games }) => {
+const Games: NextPage<GamesPageProps> = ({ games } : GamesPageProps) => {
   return (
     <>
       <div>games</div>
