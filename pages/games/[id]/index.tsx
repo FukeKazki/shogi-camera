@@ -1,11 +1,21 @@
 import { useRouter } from "next/router";
-import { InferGetServerSidePropsType, NextPage } from "next/types";
+import { InferGetServerSidePropsType, NextPage, GetServerSidePropsContext } from "next/types";
 import { fetchGames } from "../../../apis/firebase/games";
 
 export type GamesPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ params }: GetServerSidePropsContext) {
+  // idの取得をここでする
+  const id = params?.id as string
+
+  // idでデータを取得したい
+  // idでデータを取得するapiあたらしくはやす
+  // const ref = doc(db, "games", id).get() 的な感じだと思う
+  // const game = await getDoc(ref)
+
   const games = await fetchGames();
+
+  // gameを返す
   return {
     props: { games },
   };
