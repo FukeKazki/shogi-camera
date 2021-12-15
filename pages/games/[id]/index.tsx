@@ -1,32 +1,22 @@
 import { useRouter } from "next/router";
 import { InferGetServerSidePropsType, NextPage, GetServerSidePropsContext } from "next/types";
+import { fetchGameDetail } from "../../../apis/firebase/gameDetail";
 import { fetchGames } from "../../../apis/firebase/games";
+import { GamesInfoType } from "../../../types";
 
 export type GamesPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export async function getServerSideProps({ params }: GetServerSidePropsContext) {
-  // idの取得をここでする
   const id = params?.id as string
+  const gameDetail: GamesInfoType[] = await fetchGameDetail(id)
 
-  // idでデータを取得したい
-  // idでデータを取得するapiあたらしくはやす
-  // const ref = doc(db, "games", id).get() 的な感じだと思う
-  // const game = await getDoc(ref)
-
-  const games = await fetchGames();
-
-  // gameを返す
   return {
-    props: { games },
+    props: { gameDetail },
   };
 }
 
-const Post: NextPage<GamesPageProps> = ({ games }) => {
+const Post: NextPage<GamesPageProps> = ({ gameDetail }) => {
   const router = useRouter()
-  const gameDetail = games.filter((game) => {
-    return game.id === router.query.id
-  })
-
   return (
     <div>
       <div>{router.query.id}</div>
