@@ -1,5 +1,4 @@
-import React from "react"
-import { title } from "./style"
+import { title } from "./style";
 
 const HomePage = () => {
   return (
@@ -7,7 +6,7 @@ const HomePage = () => {
       <div css={title}>syogi-camera</div>
       <div>将棋カメラ</div>
     </div>
-    )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

@@ -1,6 +1,6 @@
+import GamesPage from "components/domain/Games";
 import { InferGetServerSidePropsType, NextPage } from "next";
 import { fetchGames } from "../../apis/firebase/games";
-import GamesPage from "../../components/domain/Games";
 
 export type GamesPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -14,7 +14,7 @@ export async function getServerSideProps() {
 const Games: NextPage<GamesPageProps> = ({ games }) => {
   return (
     <>
-      <GamesPage props={games}></GamesPage>
+      <GamesPage games={games}></GamesPage>
     </>
   );
 };

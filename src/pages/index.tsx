@@ -1,7 +1,7 @@
+import HomePage from "components/domain/Main";
 import React from "react";
-import HomePage from "../components/domain/Main";
 
-const Home: React.FC = () => {
+const Home: React.VFC = () => {
   return (
     <>
       <HomePage />

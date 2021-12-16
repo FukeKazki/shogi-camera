@@ -2,10 +2,10 @@ import React from "react";
 import { GamesInfoType } from "~/types";
 
 type Props = {
-  games: GamesInfoType[];
+  gameDetail: GamesInfoType | undefined;
 };
 
-const GamesPage: React.VFC<Props> = (props) => {
+const GameDetailPage: React.VFC<Props> = (props) => {
   return (
     <div>
       <div>{JSON.stringify(props)}</div>
@@ -13,4 +13,4 @@ const GamesPage: React.VFC<Props> = (props) => {
   );
 };
 
-export default GamesPage;
+export default GameDetailPage;
