@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { InferGetServerSidePropsType, NextPage, GetServerSidePropsContext } from "next/types";
 import { fetchGameDetail } from "../../../apis/firebase/gameDetail";
 import { fetchGames } from "../../../apis/firebase/games";
+import GameDefaultPage from "../../../components/domain/GameDefault";
 import { GamesInfoType } from "../../../types";
 
 export type GamesPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
@@ -19,8 +20,7 @@ const Post: NextPage<GamesPageProps> = ({ gameDetail }) => {
   const router = useRouter()
   return (
     <div>
-      <div>{router.query.id}</div>
-      <div>{JSON.stringify(gameDetail)}</div>
+      <GameDefaultPage props={gameDetail}/>
     </div>
     )
 }
