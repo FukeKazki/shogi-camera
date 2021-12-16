@@ -1,15 +1,10 @@
-import { css } from "@emotion/react";
+import HomePage from "components/domain/Main";
 import React from "react";
 
-const title = css`
-  color: gray;
-`;
-
-const Home: React.FC = () => {
+const Home: React.VFC = () => {
   return (
     <>
-      <div css={title}>syogi-camera</div>
-      <div>将棋カメラ</div>
+      <HomePage />
     </>
   );
 };
