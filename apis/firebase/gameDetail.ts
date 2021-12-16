@@ -1,12 +1,11 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../libs/firebase";
 import { GamesInfoType, instanceOfGamesInfo } from "../../types";
 
-export const fetchGameDetail = async (id:string):Promise<GamesInfoType[]>=> {
-    const gameDetail:GamesInfoType[] = []
+export const fetchGameDetail = async (id:string):Promise<GamesInfoType>=> {
 
     const docSnap = await getDoc(doc(db, "games",id));
-    const data = docSnap.data()
+    const data = docSnap.data();
     
     if (data?.startTime) {
       data.startTime = data.startTime.toDate().toJSON();
@@ -21,7 +20,6 @@ export const fetchGameDetail = async (id:string):Promise<GamesInfoType[]>=> {
         data.gote = "" // 参照型のデータ取得が必要
     }
     if(instanceOfGamesInfo(data)) {
-        gameDetail.push(data)
+        return data
     }
-    return gameDetail
 }
